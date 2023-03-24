@@ -1,0 +1,23 @@
+[27740.676663] demo device operation 0: init
+[27749.432811] demo device operation 1: open of file number 0
+[27749.432829] demo device operation 2: write of file numer 0
+[27749.432833] demo device operation 3: read of file numer 0
+[27749.432834] demo device operation 4: write of file numer 0
+[27749.432839] demo device operation 5: open of file number 1
+[27749.432844] demo device operation 6: ioctl of file number 1
+[27749.432845] demo device operation 7: write of file numer 1
+[27749.432847] demo device operation 8: write of file numer 1
+[27749.432848] demo device operation 9: write of file numer 0
+[27749.432850] demo device operation 10: read of file numer 1
+[27749.432852] demo device operation 11: ioctl of file number 1
+[27749.432853] demo device operation 12: read of file numer 1
+[27749.432857] demo device operation 13: llseek of file number 0
+[27749.432860] demo device operation 14: release of file number 0
+[27749.432863] demo device operation 15: release of file number 1
+[27749.432867] demo device operation 16: open of file number 2
+[27749.432869] demo device operation 17: read of file numer 2
+[27749.432870] demo device operation 18: llseek of file number 2
+[27749.432872] demo device operation 19: read of file numer 2
+[27749.432873] demo device operation 20: write of file numer 2
+[27749.432875] demo device operation 21: release of file number 2
+[27753.551885] demo device operation 22: exit

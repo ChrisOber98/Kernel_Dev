@@ -1,0 +1,35 @@
+This log will contain info from each run of the program
+Timestamp: 1676699598 Pid: 2093 Random Byte: 206
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676700099 Pid: 2136 Random Byte: 56
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676707262 Pid: 2443 Random Byte: 152
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676710539 Pid: 21674 Random Byte: 18
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676717706 Pid: 22537 Random Byte: 25
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676718158 Pid: 22590 Random Byte: 157
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676719091 Pid: 22688 Random Byte: 42
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676720468 Pid: 22719 Random Byte: 134
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676721520 Pid: 22767 Random Byte: 66
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676721570 Pid: 22779 Random Byte: 150
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676721621 Pid: 22794 Random Byte: 192
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676722292 Pid: 22832 Random Byte: 169
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676726158 Pid: 23035 Random Byte: 5
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676726682 Pid: 23158 Random Byte: 192
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676726717 Pid: 23173 Random Byte: 135
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676726726 Pid: 23178 Random Byte: 82
+Your username is root your user id is 0 your shell is /bin/bash
+Timestamp: 1676726768 Pid: 23194 Random Byte: 109
+Your username is root your user id is 0 your shell is /bin/bash

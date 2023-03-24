@@ -1,0 +1,98 @@
+From f7b67b8a8b65151fac9627bab1b2cadc66ea3ad6 Mon Sep 17 00:00:00 2001
+From: Chris Ober <chrisober98@gmail.com>
+Date: Mon, 13 Feb 2023 17:35:14 -0500
+Subject: [PATCH] A3: Kernel Patches
+
+Signed-off-by: Chris Ober <chrisober98@gmail.com>
+---
+ Makefile                          |  2 +-
+ include/linux/syscalls.h          |  1 +
+ include/uapi/asm-generic/unistd.h |  5 ++++-
+ kernel/Makefile                   |  2 +-
+ kernel/kdlp.c                     | 17 +++++++++++++++++
+ 5 files changed, 24 insertions(+), 3 deletions(-)
+ create mode 100644 kernel/kdlp.c
+
+diff --git a/Makefile b/Makefile
+index e09fe100efb2..3dcf324e9662 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 2
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc4
++EXTRAVERSION = -rc4-syscall
+ NAME = Hurr durr I'ma ninja sloth
+ 
+ # *DOCUMENTATION*
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 33a0ee3bcb2e..09cf3cad6db0 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -1278,6 +1278,7 @@ asmlinkage long sys_old_mmap(struct mmap_arg_struct __user *arg);
+  */
+ asmlinkage long sys_ni_syscall(void);
+ 
++asmlinkage long sys_kdlp(char __user *user_buf, size_t user_size);
+ #endif /* CONFIG_ARCH_HAS_SYSCALL_WRAPPER */
+ 
+ 
+diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
+index 45fa180cc56a..c4ddaf3778e1 100644
+--- a/include/uapi/asm-generic/unistd.h
++++ b/include/uapi/asm-generic/unistd.h
+@@ -886,8 +886,11 @@ __SYSCALL(__NR_futex_waitv, sys_futex_waitv)
+ #define __NR_set_mempolicy_home_node 450
+ __SYSCALL(__NR_set_mempolicy_home_node, sys_set_mempolicy_home_node)
+ 
++#define __NR_kdlp 451
++__SYSCALL(__NR_kdlp, sys_kdlp)
++
+ #undef __NR_syscalls
+-#define __NR_syscalls 451
++#define __NR_syscalls 452
+ 
+ /*
+  * 32 bit systems traditionally used different
+diff --git a/kernel/Makefile b/kernel/Makefile
+index 10ef068f598d..29cd9802ee92 100644
+--- a/kernel/Makefile
++++ b/kernel/Makefile
+@@ -10,7 +10,7 @@ obj-y     = fork.o exec_domain.o panic.o \
+ 	    extable.o params.o \
+ 	    kthread.o sys_ni.o nsproxy.o \
+ 	    notifier.o ksysfs.o cred.o reboot.o \
+-	    async.o range.o smpboot.o ucount.o regset.o
++	    async.o range.o smpboot.o ucount.o regset.o kdlp.o
+ 
+ obj-$(CONFIG_USERMODE_DRIVER) += usermode_driver.o
+ obj-$(CONFIG_MODULES) += kmod.o
+diff --git a/kernel/kdlp.c b/kernel/kdlp.c
+new file mode 100644
+index 000000000000..67b9e35723e7
+--- /dev/null
++++ b/kernel/kdlp.c
+@@ -0,0 +1,17 @@
++#include <linux/syscalls.h>
++#include <linux/sched.h>
++#include <linux/kernel.h>
++#include <linux/minmax.h>
++#include <linux/uaccess.h>
++
++SYSCALL_DEFINE2(kdlp, char __user *, user_buf, size_t, user_size)
++{
++	char task_name[TASK_COMM_LEN], message[TASK_COMM_LEN+64];
++	size_t message_length;
++	get_task_comm(task_name, current);
++	message_length = snprintf(message, sizeof message,
++			"Hello Chris Ober. Your task is called: %s\n", task_name);
++	if (copy_to_user(user_buf, message, message_length))
++		return -EFAULT;
++	return message_length;
++}
+
+base-commit: ff83fec8179e392be2f472f0a9ec3da8f6d529c6
+-- 
+2.39.0
+

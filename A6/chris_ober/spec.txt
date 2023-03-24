@@ -1,0 +1,31 @@
+Echo character device
+
+This character device will hold on to a message written to it, so that you can read the message back, but in reverse.  Writing a new message overwrites the old one.
+
+The character device will show up in '/dev/' as a special character device file named 'echo'.  All users can interact with the file and the state of the file is shared between all open file descriptors.
+
+The special character device file supports following operations: open, close, read, write, lseek, ioctl.
+
+When the kernel module is loaded, the driver should start in a state as if the last string written was the empty string.
+
+operations:
+	- Read:
+		- Read back whatever string was last written into the device.
+		- The minimum of however much data was requested, and how much data is available (between the current location and the end of the file) will be copied into the provided buffer starting at the file postion.
+		- If the read is successful, the nonnegative number of bytes copied will be returned, and the file position will be advanced by that many bytes, otherwise a negative error will be return to indicate what was wrong.
+	-Write:
+		- Update the string stored in the device but in reverse. This replaces whatever string was in the device to be reverse and reset the file position of the file descriptor back to zero.
+		- However many bytes are specified as the count are copied into the device.
+		- If the write is successful, the nonnegative number of bytes copied will be returned, otherwise a negatice error will be returned to indicate what went wrong.
+	- Seek:
+		- Update the value of the file position based on 'offset' and 'whence'	.
+		- If the resulting position would be outside of the file, '-EINVAL' is returned, otherwise the file position is set to the target location and the offset is returned.
+	- Ioctl:
+		- Two commands can be specified, otherwise '-EINVAL' is returned.
+		- 'IOC_ECHO_RESET' (macro with value of '_IO(0x11, 0)')
+			- Takes no arguments, returns 0 if succesful, otherwise a negative error will be returned to indicate what went wrong.
+			- Reset the device back to the inital state where no string is sotred insidei
+		- 'IOC_ECHO_LENGTH' (macro with value of '_IOR(0x11, 1, sizeof(size_t))'
+			- Provide the length of the string currently stored in the device.
+			- Takes the adress of a 'size_t' variable as an argument and stores the length within it.
+			- Returns zero if successful, otherwise a negative error will be returned what went wrong.

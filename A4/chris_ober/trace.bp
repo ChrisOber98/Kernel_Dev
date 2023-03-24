@@ -1,0 +1,7 @@
+#!/bin/env bpftrace
+
+kprobe:ktime_get_real_ts64 /comm=="program_arm64"/
+{
+	printf("ts:%p", arg0);
+	printf("\nKernel Stack: \n%s", kstack);
+}
